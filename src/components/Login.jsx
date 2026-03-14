@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 
@@ -6,12 +6,24 @@ function Login({ onLogin, onAdminLogin }) {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
 
   const [isAvailable, setIsAvailable] = useState(null);
 
+  // Load remembered credentials on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('qm_remember');
+    if (saved) {
+      const { username: u, password: p } = JSON.parse(saved);
+      setUsername(u || '');
+      setPassword(p || '');
+      setRememberMe(true);
+    }
+  }, []);
+
   // Check availability when username changes (case-insensitive)
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isAdminMode && username.trim().length > 0) {
       const registry = JSON.parse(localStorage.getItem('user_registry') || '{}');
       setIsAvailable(!registry[username.trim().toLowerCase()]);
@@ -48,7 +60,15 @@ function Login({ onLogin, onAdminLogin }) {
       if (!result.success) setError(result.message);
     } else {
       const result = onLogin(username.trim(), password);
-      if (!result.success) setError(result.message);
+      if (!result.success) {
+        setError(result.message);
+      } else {
+        if (rememberMe) {
+          localStorage.setItem('qm_remember', JSON.stringify({ username: username.trim(), password }));
+        } else {
+          localStorage.removeItem('qm_remember');
+        }
+      }
     }
   };
 
@@ -180,6 +200,39 @@ function Login({ onLogin, onAdminLogin }) {
             </p>
           )}
         </div>
+
+        {!isAdminMode && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div
+              onClick={() => setRememberMe(!rememberMe)}
+              style={{
+                width: '20px',
+                height: '20px',
+                borderRadius: '6px',
+                border: `2px solid ${rememberMe ? 'var(--primary)' : 'var(--glass-border)'}`,
+                background: rememberMe ? 'var(--primary)' : 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s',
+                flexShrink: 0
+              }}
+            >
+              {rememberMe && (
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+            <span
+              onClick={() => setRememberMe(!rememberMe)}
+              style={{ fontSize: '0.82rem', color: 'var(--text-muted)', cursor: 'pointer', userSelect: 'none' }}
+            >
+              Remember me
+            </span>
+          </div>
+        )}
 
         {error && (
           <p style={{ color: 'var(--danger)', fontSize: '0.8rem', textAlign: 'center', margin: 0 }}>{error}</p>

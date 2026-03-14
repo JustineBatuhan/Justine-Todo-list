@@ -61,7 +61,7 @@ function AdminDashboard({ onLogout }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="admin-container"
-      style={{ maxWidth: '1000px', margin: '0 auto' }}
+      style={{ margin: '0 auto', width: '100%' }}
     >
       <div className="admin-header" style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', justifyContent: 'center' }}>

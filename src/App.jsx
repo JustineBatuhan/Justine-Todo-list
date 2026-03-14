@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, ListTodo, Users, Search, Mic, LogOut, AlertCircle, Compass } from 'lucide-react';
+import { Plus, ListTodo, Search, Mic, LogOut, Compass } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import AdminDashboard from './components/AdminDashboard';
 import TodoItem from './components/TodoItem';
@@ -217,22 +217,13 @@ function App() {
               <h3 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600 }}>{user.username}</h3>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button 
-              onClick={() => setIsAdminAuthenticated(true)} 
-              className="logout-btn" 
-              style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}
-            >
-              <Users size={14} /> Admin
-            </button>
-            <button 
-              onClick={handleLogout} 
-              className="logout-btn" 
-              style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem', color: 'var(--danger)', display: 'flex', alignItems: 'center', gap: '4px' }}
-            >
-              <LogOut size={14} /> Logout
-            </button>
-          </div>
+          <button 
+            onClick={handleLogout} 
+            className="logout-btn" 
+            style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem', color: 'var(--danger)', display: 'flex', alignItems: 'center', gap: '4px' }}
+          >
+            <LogOut size={14} /> Logout
+          </button>
         </div>
       </nav>
 

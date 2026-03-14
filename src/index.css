@@ -29,6 +29,18 @@
 html {
   overflow-x: hidden;
   max-width: 100vw;
+  font-size: 16px;
+}
+
+/* Scale everything down proportionally on phones */
+@media (max-width: 430px) {
+  html { font-size: 14px; }
+}
+@media (max-width: 375px) {
+  html { font-size: 13px; }
+}
+@media (max-width: 360px) {
+  html { font-size: 12px; }
 }
 
 body {
@@ -43,6 +55,16 @@ body {
   padding: 2rem 1rem;
   overflow-x: hidden;
   animation: bgPulse 15s ease infinite alternate;
+}
+
+@media (max-width: 768px) {
+  body { padding: 1rem 0.5rem; }
+}
+@media (max-width: 430px) {
+  body { padding: 0.75rem 0.4rem; }
+}
+@media (max-width: 360px) {
+  body { padding: 0.5rem 0.3rem; }
 }
 
 @keyframes bgPulse {
@@ -66,13 +88,26 @@ body::before {
   width: 100%;
   max-width: 600px;
   min-width: 0;
-  padding: 2.5rem;
+  padding: 2rem;
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
-  border-radius: 32px;
+  border-radius: 28px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+  .app-container { padding: 1.25rem 1rem; border-radius: 20px; max-width: 100%; }
+}
+@media (max-width: 430px) {
+  .app-container { padding: 1rem 0.85rem; border-radius: 18px; }
+}
+@media (max-width: 375px) {
+  .app-container { padding: 0.9rem 0.75rem; border-radius: 16px; }
+}
+@media (max-width: 360px) {
+  .app-container { padding: 0.8rem 0.65rem; border-radius: 14px; }
 }
 
 .header {
@@ -751,11 +786,24 @@ body::before {
   width: 100%;
   max-width: 900px;
   min-width: 0;
-  padding: 2.5rem;
+  padding: 2rem;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
-  border-radius: 32px;
+  border-radius: 28px;
   border: 1px solid var(--glass-border);
+}
+
+@media (max-width: 768px) {
+  .admin-container { padding: 1.25rem 1rem; border-radius: 20px; max-width: 100%; }
+}
+@media (max-width: 430px) {
+  .admin-container { padding: 1rem 0.85rem; border-radius: 18px; }
+}
+@media (max-width: 375px) {
+  .admin-container { padding: 0.9rem 0.75rem; border-radius: 16px; }
+}
+@media (max-width: 360px) {
+  .admin-container { padding: 0.8rem 0.65rem; border-radius: 14px; }
 }
 
 .admin-header {

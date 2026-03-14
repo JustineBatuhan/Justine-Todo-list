@@ -130,7 +130,7 @@ function App() {
   };
 
   const handleAdminLogin = (password) => {
-    if (password === 'admin') {
+    if (password === 'Justinebatuhan2004') {
       setIsAdminAuthenticated(true);
       return { success: true };
     }
